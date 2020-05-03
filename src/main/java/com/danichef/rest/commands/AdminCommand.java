@@ -58,6 +58,7 @@ public class AdminCommand implements CommandExecutor {
                 } else {
                     playerCorpses.putToSleep(target);
                     target.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.LAYING));
+                    target.sendMessage(MessagesUtil.STAND_UP);
                 }
 
             } else if (args[0].equalsIgnoreCase("stand")) {

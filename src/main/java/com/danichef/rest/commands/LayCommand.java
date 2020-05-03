@@ -40,6 +40,7 @@ public class LayCommand implements CommandExecutor {
             }
             playerCorpses.putToSleep(player);
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.LAYING));
+            player.sendMessage(MessagesUtil.STAND_UP);
         }
         return true;
     }
