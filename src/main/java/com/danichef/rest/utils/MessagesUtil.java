@@ -4,7 +4,7 @@ import org.bukkit.ChatColor;
 
 public class MessagesUtil {
 
-    public static final String PREFIX = ChatColor.DARK_AQUA + "" + ChatColor.BOLD + "SimpleRest" + ChatColor.DARK_GRAY + "» ";
+    public static final String PREFIX = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_AQUA + "SimpleRest" + ChatColor.DARK_GRAY + "] ";
 
     public static final String AS_NAME = "Seat";
 
