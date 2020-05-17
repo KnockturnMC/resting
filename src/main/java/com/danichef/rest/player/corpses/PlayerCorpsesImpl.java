@@ -10,18 +10,29 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PlayerCorpsesImpl implements PlayerCorpses {
 
     @Getter
-    private List<Player> sleepingPlayers = new ArrayList<>();
+    private final List<Player> sleepingPlayers = new ArrayList<>();
 
     private static final Object ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("bq",
             ReflectionUtil.getNmsClass("EntityLiving"), null);
+    private static final Object ENTITY_POSE_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("POSE",
+            ReflectionUtil.getNmsClass("Entity"), null);
+
     private static final Class<?> CLASS_DATA_WATCHER_ITEM = ReflectionUtil.getNmsClass("DataWatcher$Item"),
             CLASS_DATA_WATCHER_OBJECT = ReflectionUtil.getNmsClass("DataWatcherObject"),
             CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA = ReflectionUtil.getNmsClass("PacketPlayOutEntityMetadata");
+
+    private static final Object POSE_SLEEPING = ReflectionUtil.getNmsClass("EntityPose").getEnumConstants()[2];
+    private static final Object POSE_STANDING = ReflectionUtil.getNmsClass("EntityPose").getEnumConstants()[0];
 
     /**
      * @param player to put to sleep
@@ -43,18 +54,20 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
             Optional<Object> block = Optional.of(ReflectionUtil.getBlockPosition(hiddenBedBlock)); //The BlockPosition Instance
-            Object item = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
+            Object bedPositionData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT, block);
+            Object poseData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
+                    .newInstance(ENTITY_POSE_DATA_WATCHER_OBJECT, POSE_SLEEPING);
 
             Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor().newInstance())
                     .with("a", ReflectionUtil.getID(player))
-                    .with("b", Collections.singletonList(item))
+                    .with("b", Stream.of(bedPositionData, poseData).collect(Collectors.toList()))
                     .get();
 
             send.forEach(all -> {
                 all.sendBlockChange(hiddenBedBlock, Material.RED_BED.createBlockData(b -> {
                     final Bed bed = (Bed) b;
-                    ((Bed) b).setFacing(Util.yawToFace(player));
+                    bed.setFacing(Util.yawToFace(player));
                 }));
                 ReflectionUtil.sendPacket(all, packet);
             });
@@ -84,12 +97,14 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location playerLocation = player.getLocation().clone();
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
-            Object item = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
+            Object bedPositionData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT, Optional.empty());
+            Object poseData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
+                    .newInstance(ENTITY_POSE_DATA_WATCHER_OBJECT, POSE_STANDING);
 
             Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor().newInstance())
                     .with("a", ReflectionUtil.getID(player))
-                    .with("b", Collections.singletonList(item))
+                    .with("b", Stream.of(bedPositionData, poseData).collect(Collectors.toList()))
                     .get();
 
             hiddenBedBlock.getBlock().getState().update(); //Update fake block
