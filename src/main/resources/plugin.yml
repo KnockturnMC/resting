@@ -1,5 +1,5 @@
 name: '${name}'
-main: com.danichef.rest.Rest
+main: com.danichef.rest.Resting
 version: ${version}
 author: ${author}
 api-version: "1.15"

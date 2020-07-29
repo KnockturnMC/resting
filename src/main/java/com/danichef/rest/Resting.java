@@ -16,7 +16,7 @@ import lombok.Getter;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class Rest extends JavaPlugin {
+public class Resting extends JavaPlugin {
 
     @Getter
     private PlayerSit playerSit;

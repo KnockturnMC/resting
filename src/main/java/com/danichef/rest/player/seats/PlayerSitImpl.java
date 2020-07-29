@@ -1,7 +1,5 @@
 package com.danichef.rest.player.seats;
 
-import com.danichef.rest.Rest;
-import com.danichef.rest.utils.MessagesUtil;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.ArmorStand;
