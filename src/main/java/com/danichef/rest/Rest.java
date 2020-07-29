@@ -11,7 +11,9 @@ import com.danichef.rest.player.corpses.PlayerCorpses;
 import com.danichef.rest.player.corpses.PlayerCorpsesImpl;
 import com.danichef.rest.player.seats.PlayerSit;
 import com.danichef.rest.player.seats.PlayerSitImpl;
+import com.danichef.rest.utils.MessagesUtil;
 import lombok.Getter;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class Rest extends JavaPlugin {
@@ -25,12 +27,12 @@ public class Rest extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        playerSit = new PlayerSitImpl();
+        playerSit = new PlayerSitImpl(new NamespacedKey(this, MessagesUtil.AS_KEY));
         playerCorpses = new PlayerCorpsesImpl();
         playerManager = new PlayerManagerImpl(playerCorpses);
 
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(playerCorpses), this);
-        getServer().getPluginManager().registerEvents(new PlayerDismountListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerDismountListener(playerSit), this);
 
         getCommand("sit").setExecutor(new SitCommand(playerSit, playerManager));
         getCommand("lay").setExecutor(new LayCommand(playerCorpses, playerManager));

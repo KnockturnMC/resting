@@ -42,7 +42,7 @@ public class AdminCommand implements CommandExecutor {
 
         if ((args.length == 1) && (args[0].equalsIgnoreCase("cleanse"))) {
             player.getWorld().getEntitiesByClass(ArmorStand.class).stream()
-                    .filter(a -> a.getCustomName().equals(MessagesUtil.AS_NAME))
+                    .filter(playerSit::isSeat)
                     .forEach(Entity::remove);
 
         } else if ((args.length == 2) && (Bukkit.getPlayer(args[1]) != null)) {
@@ -62,7 +62,7 @@ public class AdminCommand implements CommandExecutor {
                 }
 
             } else if (args[0].equalsIgnoreCase("stand")) {
-                if ((target.getVehicle() != null) && (target.getVehicle().getCustomName().equals(MessagesUtil.AS_NAME))) {
+                if ((target.getVehicle() != null) && (playerSit.isSeat(target.getVehicle()))) {
                     target.getVehicle().remove();
                 }
 
