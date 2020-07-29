@@ -1,6 +1,7 @@
 package com.danichef.rest.player;
 
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public interface PlayerManager {
 
@@ -10,5 +11,5 @@ public interface PlayerManager {
      * @param player
      * @return if player can player rest
      */
-    boolean canRest(Player player);
+    boolean canRest(@NotNull Player player);
 }

@@ -6,7 +6,7 @@ public class MessagesUtil {
 
     public static final String PREFIX = ChatColor.DARK_GRAY + "[" + ChatColor.DARK_AQUA + "SimpleRest" + ChatColor.DARK_GRAY + "] ";
 
-    public static final String AS_NAME = "Seat";
+    public static final String AS_KEY = "seat";
 
     public static final String NO_GROUND = ChatColor.AQUA + "Must be on the floor to rest!";
     public static final String SITTING = ChatColor.AQUA + "You are now sitting";

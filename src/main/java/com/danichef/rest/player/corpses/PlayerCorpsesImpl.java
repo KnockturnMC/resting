@@ -9,6 +9,7 @@ import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +39,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
      * @param player to put to sleep
      */
     @Override
-    public void putToSleep(Player player) {
+    public void putToSleep(@NotNull Player player) {
         putToSleep(player, player.getWorld().getPlayers().toArray(new Player[0]));
     }
 
@@ -47,7 +48,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
      * @param sendTo the players that will recieve the sleep packets
      */
     @Override
-    public void putToSleep(Player player, Player... sendTo) {
+    public void putToSleep(@NotNull Player player, @NotNull Player... sendTo) {
         try {
             List<Player> send = Arrays.asList(sendTo);
             Location playerLocation = player.getLocation().clone();
@@ -82,7 +83,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
      * @param player to wake up
      */
     @Override
-    public void wakeUp(Player player) {
+    public void wakeUp(@NotNull Player player) {
         wakeUp(player, player.getWorld().getPlayers().toArray(new Player[0]));
     }
 
@@ -91,7 +92,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
      * @param sendTo the players that will recieve the wake-up packets
      */
     @Override
-    public void wakeUp(Player player, Player... sendTo) {
+    public void wakeUp(@NotNull Player player, @NotNull Player... sendTo) {
         try {
             List<Player> send = Arrays.asList(sendTo);
             Location playerLocation = player.getLocation().clone();
@@ -124,7 +125,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
      * @return if player is lying
      */
     @Override
-    public boolean isLying(Player player) {
+    public boolean isLying(@NotNull Player player) {
         return getSleepingPlayers().contains(player);
     }
 

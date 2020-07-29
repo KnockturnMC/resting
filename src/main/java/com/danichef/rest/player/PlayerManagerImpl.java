@@ -3,6 +3,7 @@ package com.danichef.rest.player;
 import com.danichef.rest.player.corpses.PlayerCorpses;
 import com.danichef.rest.player.seats.PlayerSit;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 public class PlayerManagerImpl implements PlayerManager {
 
@@ -19,7 +20,7 @@ public class PlayerManagerImpl implements PlayerManager {
      * @return if player can player rest
      */
     @Override
-    public boolean canRest(Player player) {
+    public boolean canRest(@NotNull Player player) {
         if (player.isOnGround() && !player.isSleeping() && !playerCorpses.isLying(player) && player.getVehicle() == null) return true;
         return false;
     }
