@@ -23,7 +23,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
     @Getter
     private final List<Player> sleepingPlayers = new ArrayList<>();
 
-    private static final Object ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("bq",
+    private static final Object ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("bj",
             ReflectionUtil.getNmsClass("EntityLiving"), null);
     private static final Object ENTITY_POSE_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("POSE",
             ReflectionUtil.getNmsClass("Entity"), null);
