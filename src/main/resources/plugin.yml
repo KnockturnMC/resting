@@ -2,7 +2,7 @@ name: '${name}'
 main: com.danichef.rest.Resting
 version: ${version}
 author: ${author}
-api-version: "1.15"
+api-version: "1.17"
 
 commands:
   rest:

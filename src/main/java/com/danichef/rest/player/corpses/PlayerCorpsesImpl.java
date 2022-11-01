@@ -23,17 +23,18 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
     @Getter
     private final List<Player> sleepingPlayers = new ArrayList<>();
 
-    private static final Object ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("bj",
-            ReflectionUtil.getNmsClass("EntityLiving"), null);
-    private static final Object ENTITY_POSE_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("POSE",
-            ReflectionUtil.getNmsClass("Entity"), null);
+    private static final Object ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("bO",
+            ReflectionUtil.getNmsClassEntLiv(), null);
 
-    private static final Class<?> CLASS_DATA_WATCHER_ITEM = ReflectionUtil.getNmsClass("DataWatcher$Item"),
-            CLASS_DATA_WATCHER_OBJECT = ReflectionUtil.getNmsClass("DataWatcherObject"),
-            CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA = ReflectionUtil.getNmsClass("PacketPlayOutEntityMetadata");
+    private static final Object ENTITY_POSE_DATA_WATCHER_OBJECT = ReflectionUtil.getDeclaredField("ad",
+            ReflectionUtil.getNmsClassEnt(), null);
 
-    private static final Object POSE_SLEEPING = ReflectionUtil.getNmsClass("EntityPose").getEnumConstants()[2];
-    private static final Object POSE_STANDING = ReflectionUtil.getNmsClass("EntityPose").getEnumConstants()[0];
+    private static final Class<?> CLASS_DATA_WATCHER_ITEM = ReflectionUtil.getNmsClassWatchItem(),
+            CLASS_DATA_WATCHER_OBJECT = ReflectionUtil.getNmsClassWatchObject(),
+            CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA = ReflectionUtil.getNmsClassPacketEnt();
+
+    private static final Object POSE_SLEEPING = ReflectionUtil.getNmsClassPose().getEnumConstants()[2];
+    private static final Object POSE_STANDING = ReflectionUtil.getNmsClassPose().getEnumConstants()[0];
 
     /**
      * @param player to put to sleep
@@ -54,13 +55,17 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location playerLocation = player.getLocation().clone();
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
+            Object nms = ReflectionUtil.getNMSEntity(player);
+            Object watcher = ReflectionUtil.getDeclaredField("Y", ReflectionUtil.getNmsClassEnt(), nms);
+
             Optional<Object> block = Optional.of(ReflectionUtil.getBlockPosition(hiddenBedBlock)); //The BlockPosition Instance
             Object bedPositionData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT, block);
             Object poseData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_POSE_DATA_WATCHER_OBJECT, POSE_SLEEPING);
 
-            Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor().newInstance())
+            Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor(int.class, ReflectionUtil.getNmsClassWatch(), boolean.class)
+                    .newInstance(ReflectionUtil.getID(player), watcher, false))
                     .with("a", ReflectionUtil.getID(player))
                     .with("b", Stream.of(bedPositionData, poseData).collect(Collectors.toList()))
                     .get();
@@ -98,12 +103,16 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location playerLocation = player.getLocation().clone();
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
+            Object nms = ReflectionUtil.getNMSEntity(player);
+            Object watcher = ReflectionUtil.getDeclaredField("Y", ReflectionUtil.getNmsClassEnt(), nms);
+
             Object bedPositionData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_LIVING_BED_POSITION_DATA_WATCHER_OBJECT, Optional.empty());
             Object poseData = CLASS_DATA_WATCHER_ITEM.getDeclaredConstructor(CLASS_DATA_WATCHER_OBJECT, Object.class)
                     .newInstance(ENTITY_POSE_DATA_WATCHER_OBJECT, POSE_STANDING);
 
-            Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor().newInstance())
+            Object packet = new ReflectedObject(CLASS_PACKET_PLAY_OUT_ENTITY_META_DATA.getDeclaredConstructor(int.class, ReflectionUtil.getNmsClassWatch(), boolean.class)
+                    .newInstance(ReflectionUtil.getID(player), watcher, false))
                     .with("a", ReflectionUtil.getID(player))
                     .with("b", Stream.of(bedPositionData, poseData).collect(Collectors.toList()))
                     .get();
