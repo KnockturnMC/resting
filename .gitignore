@@ -3,3 +3,6 @@ target/
 *.iml
 *.impl
 */dependency-reduced-pom.xml
+
+build/
+.gradle/
