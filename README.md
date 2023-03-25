@@ -12,7 +12,7 @@ The plugin is based on the gradle build tools, so you can easily install it usin
 gradlew build # on windows
 ```
 
-The final output jar will be located in the `impl/build/libs` folder.
+The final output jar will be located in the `resting-impl/build/libs` folder.
 Notably choose the jar without `-dev` or `-dev-all` suffixes.
 
 Commands
