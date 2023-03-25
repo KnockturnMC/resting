@@ -1,4 +1,4 @@
-name: '${project.name}'
+name: 'Resting'
 main: com.danichef.rest.Resting
 version: ${project.version}
 author: "danichef"
