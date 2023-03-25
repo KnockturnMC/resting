@@ -1,0 +1,14 @@
+name: '${project.name}'
+main: com.danichef.rest.Resting
+version: ${project.version}
+author: "danichef"
+api-version: "1.19"
+
+commands:
+  rest:
+    description: "Admin command for Rest plugin"
+  lay:
+    description: "Allows players to lay and wake up"
+    aliases: [ unlay, wakeup ]
+  sit:
+    description: "Allows players to sit down"
