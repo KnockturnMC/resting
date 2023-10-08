@@ -5,8 +5,6 @@ plugins {
     id("io.papermc.paperweight.userdev") version "1.5.7"
 }
 
-group = "com.danichef"
-version = "1.0-SNAPSHOT"
 description = "resting"
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(17))
 
@@ -25,4 +23,9 @@ dependencies {
 tasks.withType<ProcessResources> {
     expand(project.properties)
 }
-tasks.assemble { dependsOn(tasks.reobfJar) }
+tasks.reobfJar {
+    outputJar.set(layout.buildDirectory.file("libs/${project.name}-${project.version}-reobf.jar"))
+}
+tasks.assemble {
+    dependsOn(tasks.reobfJar)
+}

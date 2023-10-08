@@ -3,8 +3,6 @@ plugins {
     `maven-publish`
 }
 
-group = "com.danichef"
-version = "1.0-SNAPSHOT"
 description = "resting"
 java { toolchain.languageVersion.set(JavaLanguageVersion.of(17)); withSourcesJar(); withJavadocJar() } // Include for publishing
 
