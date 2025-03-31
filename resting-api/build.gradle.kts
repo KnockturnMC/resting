@@ -4,17 +4,16 @@ plugins {
 }
 
 description = "resting"
-java { toolchain.languageVersion.set(JavaLanguageVersion.of(17)); withSourcesJar(); withJavadocJar() } // Include for publishing
+java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)); withSourcesJar(); withJavadocJar() } // Include for publishing
 
 repositories {
-    mavenLocal()
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
     implementation("org.jetbrains:annotations:24.0.1")
-    compileOnly("org.spigotmc:spigot-api:1.19.4-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.4-R0.1-SNAPSHOT")
 }
 
 publishing {

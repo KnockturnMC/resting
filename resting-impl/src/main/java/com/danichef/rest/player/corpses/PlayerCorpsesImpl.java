@@ -17,7 +17,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Bed;
-import org.bukkit.craftbukkit.v1_19_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,11 +36,11 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
     static {
         try {
             BED_POSITION_ACCESSOR = (EntityDataAccessor<Optional<BlockPos>>) ReflectionUtil.getter(
-              LivingEntity.class.getDeclaredField("bK")
+              LivingEntity.class.getDeclaredField("SLEEPING_POS_ID")
             ).invoke();
 
             POSE_ACCESSOR = (EntityDataAccessor<Pose>) ReflectionUtil.getter(
-              Entity.class.getDeclaredField("ar")
+              Entity.class.getDeclaredField("DATA_POSE")
             ).invoke();
         } catch (Throwable e) {
             throw new RuntimeException("Failed to find entity data accessors required for PlayerCorpsesImpl", e);
