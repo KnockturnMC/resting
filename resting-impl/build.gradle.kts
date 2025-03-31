@@ -2,15 +2,17 @@ plugins {
     java
     id("com.gradleup.shadow") version "8.3.5"
     id("io.freefair.lombok") version "8.13.1"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.16"
+    id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("io.papermc.paperweight.userdev")
 }
 
 description = "resting"
 java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+tasks.runServer { minecraftVersion("1.21.4") }
 
 repositories {
     mavenCentral()
-    maven("https://hub.spigotmc.org/nexus/content/repositories/snapshots/")
+    maven("https://repo.papermc.io/repository/maven-public/")
 }
 
 dependencies {
@@ -22,3 +24,4 @@ dependencies {
 tasks.withType<ProcessResources> {
     expand(project.properties)
 }
+tasks.assemble { dependsOn(tasks.shadowJar) }
