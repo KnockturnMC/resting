@@ -18,6 +18,7 @@ import org.bukkit.Material;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Bed;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.util.CraftLocation;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -72,7 +73,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location playerLocation = player.getLocation().clone();
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
-            final BlockPos block = MCUtil.toBlockPosition(hiddenBedBlock);
+            final BlockPos block = CraftLocation.toBlockPosition(hiddenBedBlock);
             final ClientboundSetEntityDataPacket packet = new ClientboundSetEntityDataPacket(
               ((CraftPlayer) player).getHandle().getId(),
               List.of(
