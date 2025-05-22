@@ -4,7 +4,6 @@ import com.danichef.rest.corpses.PlayerCorpses;
 import com.danichef.rest.events.PlayerCorpseEvent;
 import com.danichef.rest.utils.ReflectionUtil;
 import com.danichef.rest.utils.Util;
-import io.papermc.paper.util.MCUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.game.ClientboundSetEntityDataPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
