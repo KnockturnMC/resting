@@ -35,12 +35,10 @@ public class SitCommand implements CommandExecutor {
             return false;
         }
 
-        try {
-            playerSit.sit(player);
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
-        } catch (Exception e) {
-            return false;
-        }
+        boolean isSitting = playerSit.sit(player);
+        if (!isSitting) return false;
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
+
         return true;
     }
 }
