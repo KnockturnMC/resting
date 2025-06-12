@@ -46,6 +46,7 @@ public class PlayerSitImpl implements PlayerSit {
             seat.remove(); // Failed to add the player as a passanger, removing the armor stand
             return false;
         }
+        return true;
     }
 
     /**
