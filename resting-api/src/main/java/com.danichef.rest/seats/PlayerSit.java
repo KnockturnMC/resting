@@ -11,7 +11,7 @@ public interface PlayerSit {
      *
      * @param player to sit
      */
-    void sit(@NotNull Player player);
+    boolean sit(@NotNull Player player);
 
     /**
      * Makes player stand up

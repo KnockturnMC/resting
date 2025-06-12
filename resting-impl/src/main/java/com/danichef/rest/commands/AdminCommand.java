@@ -46,10 +46,10 @@ public class AdminCommand implements CommandExecutor {
               .forEach(Entity::remove);
 
         } else if ((args.length == 2) && (Bukkit.getPlayer(args[1]) != null)) {
-
             Player target = Bukkit.getPlayer(args[1]);
             if (args[0].equalsIgnoreCase("sit")) {
-                playerSit.sit(target);
+                boolean isSitting = playerSit.sit(target);
+                if (!isSitting) return false;
                 target.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
 
             } else if (args[0].equalsIgnoreCase("lay")) {
