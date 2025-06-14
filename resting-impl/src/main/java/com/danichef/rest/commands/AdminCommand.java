@@ -49,7 +49,10 @@ public class AdminCommand implements CommandExecutor {
             Player target = Bukkit.getPlayer(args[1]);
             if (args[0].equalsIgnoreCase("sit")) {
                 boolean isSitting = playerSit.sit(target);
-                if (!isSitting) return false;
+                if (!isSitting) {
+                    player.sendMessage(MessagesUtil.SIT_FAILED);
+                    return false;
+                }
                 target.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
 
             } else if (args[0].equalsIgnoreCase("lay")) {
