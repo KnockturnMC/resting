@@ -25,10 +25,12 @@ public class PlayerSitImpl implements PlayerSit {
      * @param player to sit
      */
     @Override
-    public void sit(@NotNull Player player) {
+    public boolean sit(@NotNull Player player) {
         final PlayerSitEvent sitEvent = new PlayerSitEvent(player, true);
         Bukkit.getPluginManager().callEvent(sitEvent);
-        if (sitEvent.isCancelled()) return;
+        if (sitEvent.isCancelled()) {
+            return false;
+        };
 
         final Location location = player.getLocation();
 
@@ -42,7 +44,9 @@ public class PlayerSitImpl implements PlayerSit {
 
         if (!seat.addPassenger(player)) {
             seat.remove(); // Failed to add the player as a passanger, removing the armor stand
+            return false;
         }
+        return true;
     }
 
     /**

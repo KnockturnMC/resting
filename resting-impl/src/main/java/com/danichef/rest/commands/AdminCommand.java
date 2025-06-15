@@ -30,14 +30,14 @@ public class AdminCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
         if (!(sender instanceof Player)) {
             sender.sendMessage(ChatColor.RED + "This plugin is for players only!");
-            return false;
+            return true;
         }
 
         Player player = (Player) sender;
 
         if (!player.hasPermission(PermissionsUtil.ADMIN)) {
             player.sendMessage(MessagesUtil.NO_PERMISSIONS);
-            return false;
+            return true;
         }
 
         if ((args.length == 1) && (args[0].equalsIgnoreCase("cleanse"))) {
@@ -46,10 +46,13 @@ public class AdminCommand implements CommandExecutor {
               .forEach(Entity::remove);
 
         } else if ((args.length == 2) && (Bukkit.getPlayer(args[1]) != null)) {
-
             Player target = Bukkit.getPlayer(args[1]);
             if (args[0].equalsIgnoreCase("sit")) {
-                playerSit.sit(target);
+                boolean isSitting = playerSit.sit(target);
+                if (!isSitting) {
+                    player.sendMessage(MessagesUtil.SIT_FAILED);
+                    return true;
+                }
                 target.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
 
             } else if (args[0].equalsIgnoreCase("lay")) {
@@ -68,12 +71,12 @@ public class AdminCommand implements CommandExecutor {
 
             } else {
                 player.sendMessage(MessagesUtil.COMMAND);
-                return false;
+                return true;
             }
 
         } else {
             player.sendMessage(MessagesUtil.COMMAND);
-            return false;
+            return true;
         }
         return true;
     }

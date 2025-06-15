@@ -15,5 +15,6 @@ public class MessagesUtil {
 
     public static final String COMMAND = PREFIX + ChatColor.AQUA + "/rest (cleanse/sit/lay/stand) [Player]";
     public static final String NO_PERMISSIONS = PREFIX + ChatColor.AQUA + "Woah! Stop there big fellah! Not enough permissions.";
+    public static final String SIT_FAILED = PREFIX + ChatColor.RED + "Failed to sit.";
 
 }
