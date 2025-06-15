@@ -32,11 +32,11 @@ public class SitCommand implements CommandExecutor {
 
         if (!playerManager.canRest(player)) {
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.NO_GROUND));
-            return false;
+            return true;
         }
 
         boolean isSitting = playerSit.sit(player);
-        if (!isSitting) return false;
+        if (!isSitting) return true;
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(MessagesUtil.SITTING));
 
         return true;
