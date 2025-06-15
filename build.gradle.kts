@@ -5,6 +5,6 @@ plugins {
 }
 
 allprojects {
-    version = "1.0.4-SNAPSHOT"
+    version = "1.0.4"
     description = "resting"
 }
