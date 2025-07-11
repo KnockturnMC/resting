@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains:annotations:26.0.2")
-    compileOnly("io.papermc.paper:paper-api:1.21.5-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.21.7-R0.1-SNAPSHOT")
 }
 
 publishing {
