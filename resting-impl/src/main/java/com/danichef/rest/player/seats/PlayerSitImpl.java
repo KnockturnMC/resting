@@ -42,7 +42,7 @@ public class PlayerSitImpl implements PlayerSit {
         seat.setVisible(false);
         seat.getPersistentDataContainer().set(key, PersistentDataType.STRING, "");
 
-        if (!seat.addPassenger(player)) {
+        if (!seat.addPassenger(player) || !seat.getPassengers().contains(player)) {
             seat.remove(); // Failed to add the player as a passanger, removing the armor stand
             return false;
         }
