@@ -17,7 +17,7 @@ repositories {
 
 dependencies {
     paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
-    implementation("org.jetbrains:annotations:26.0.2-1")
+    implementation("org.jetbrains:annotations:26.1.0")
     implementation(project(":resting-api"))
 }
 
