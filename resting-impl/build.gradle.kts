@@ -7,8 +7,8 @@ plugins {
 }
 
 description = "resting"
-java.toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-tasks.runServer { minecraftVersion("1.21.11") }
+java.toolchain.languageVersion.set(JavaLanguageVersion.of(25))
+tasks.runServer { minecraftVersion("26.3") }
 
 repositories {
     mavenCentral()
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("26.3.build.+")
     implementation("org.jetbrains:annotations:26.1.0")
     implementation(project(":resting-api"))
 }

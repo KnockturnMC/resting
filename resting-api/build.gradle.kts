@@ -4,7 +4,7 @@ plugins {
 }
 
 description = "resting"
-java { toolchain.languageVersion.set(JavaLanguageVersion.of(21)); withSourcesJar(); withJavadocJar() } // Include for publishing
+java { toolchain.languageVersion.set(JavaLanguageVersion.of(25)); withSourcesJar(); withJavadocJar() } // Include for publishing
 
 repositories {
     mavenCentral()
@@ -13,7 +13,7 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains:annotations:26.1.0")
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:26.3.build.+")
 }
 
 publishing {

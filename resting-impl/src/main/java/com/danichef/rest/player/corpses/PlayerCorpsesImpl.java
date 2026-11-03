@@ -72,7 +72,7 @@ public class PlayerCorpsesImpl implements PlayerCorpses {
             Location playerLocation = player.getLocation().clone();
             Location hiddenBedBlock = findNextHiddenBlock(playerLocation);
 
-            final BlockPos block = CraftLocation.toBlockPosition(hiddenBedBlock);
+            final BlockPos block = CraftLocation.toBlockPos(hiddenBedBlock);
             final ClientboundSetEntityDataPacket packet = new ClientboundSetEntityDataPacket(
               ((CraftPlayer) player).getHandle().getId(),
               List.of(
