@@ -3,7 +3,7 @@ plugins {
 }
 
 allprojects {
-    version = "1.0.5-SNAPSHOT"
+    version = "1.0.6"
     group = "com.danichef"
     description = "resting"
 }
